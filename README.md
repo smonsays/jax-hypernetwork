@@ -4,7 +4,8 @@ A simple hypernetwork implementation in [jax](https://github.com/google/jax/) us
 
 ## Example
 
-In this little demo, we create a linear hypernetwork to parametrise the weights of a multilayer perceptron in 3 steps.
+In this little demo, we create a linear hypernetwork to parametrise the weights of a multilayer perceptron. For a more elaborate example see [example.py](https://github.com/smonsays/jax-hypernetwork/blob/main/example.py).
+
 ```python
 import haiku as hk
 import jax
@@ -28,8 +29,21 @@ params_target_generated = hnet.apply(params_hnet, rng)
 output = target_network.apply(params_target_generated, rng, jax.numpy.empty((28 * 28)))
 ```
 
+## Features
+
+The [Hypernetwork base class](https://github.com/smonsays/jax-hypernetwork/blob/main/jax_hypernetwork/hnet.py#L27) allows to specify the
+
+- source model (weight generator)
+- target model (model to be parametrised)
+- embedding model
+- chunking strategy
+
+and is easy to extend e.g. to add input dependence. Two examples provided are a [LinearHypernetwork](https://github.com/smonsays/jax-hypernetwork/blob/main/jax_hypernetwork/hnet.py#L95) and a [MLPHypernetwork](https://github.com/smonsays/jax-hypernetwork/blob/main/jax_hypernetwork/hnet.py#L101).
+
 ## Install
+
 Install `jax-hypernetwork` using pip:
-```
+
+```bash
 pip install git+https://github.com/smonsays/jax-hypernetwork
 ```
